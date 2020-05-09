@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-size: 9pt;
+      }
+      #panel {
+        width: 600px;
+        height: 400px;
+        border: 1px solid #999;
+        margin-top: 10px;
+        position: relative;
+      }
+
+      #fish {
+        position: absolute;
+        left: 50px;
+        top: 120px;
+      }
+
+      #info {
+        width: 600px;
+        height: 30px;
+        border: 1px solid #999;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="info">
+      여기에 클릭한 위치 값이 출력됩니다.
+    </div>
+    <div id="panel">
+      <img src="fish.png" id="fish" />
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <!-- jquery ui 관련 S.easing이라는 에러가 발생하는데 아래의 jquery ui관련 cdn을 삽입하면 에러를 해결해준다. -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+    <script>
+      $(document).ready(() => {
+        // 물고기 노드 구하기.
+        let $fish = $("#fish");
+        let $info = $("#info");
+
+        $("#panel").click(function (e) {
+          let offsetX = e.pageX - $(this).offset().left;
+          let offsetY = e.pageY - $(this).offset().top;
+
+          // 클릭한 위치 값 알아내기
+          let strInfo = "offsetX = " + offsetX + ", offsetY = " + offsetY;
+
+          // 클릭한 위치 값 출력
+          $info.html(strInfo);
+
+          // 여기에 코드를 작성해주세요.
+          /*
+            // 클릭한 위치로 이동
+            $fish.css({
+                left:offsetX,
+                top:offsetY
+            })
+            */
+
+          $fish.animate(
+            {
+              left: offsetX,
+              top: offsetY,
+            },
+            300,
+            "easeOutBounce"
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

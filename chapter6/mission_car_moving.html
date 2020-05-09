@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-size: 9pt;
+      }
+      .panel {
+        width: 840px;
+        height: 415px;
+        border: 1px solid #ccc;
+      }
+
+      .nav {
+        width: 840px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <img src="./images/1.jpg" id="view" />
+    </div>
+    <div class="nav">
+      <button id="play">
+        play
+      </button>
+      <button id="stop">
+        stop
+      </button>
+      <button id="prev">
+        prev
+      </button>
+      <button id="next">
+        next
+      </button>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //   // 전역 변수 선언 부분
+      //   var $view = null;
+      //   var currentIndex = 1;
+      //   var timerID = 0;
+
+      //   // 시작 부분
+      //   $(document).ready(function () {
+      //     // 전역 요소 초기화 함수 호출
+      //     init();
+
+      //     // 이벤트 초기화 함수 호출
+      //     initEvent();
+      //   });
+
+      //   // 전역 요소 초기화
+      //   function init() {
+      //     $view = $("#view");
+      //   }
+
+      //   // 이벤트 초기화 함수
+      //   function initEvent() {
+      //     // 오토 플레이 실행
+      //     $("#play").click(function () {
+      //       startAutoPlay();
+      //     });
+
+      //     // 오토 플레이 멈춤
+      //     $("#stop").click(function () {
+      //       stopAutoPlay();
+      //     });
+
+      //     // 다음 이미지
+      //     $("#next").click(function () {
+      //       nextImage();
+      //     });
+
+      //     // 이전 이미지
+      //     $("#prev").click(function () {
+      //       prevImage();
+      //     });
+      //   }
+
+      //   // 오토 플레이 실행
+      //   function startAutoPlay() {
+      //     if (timerID == 0) {
+      //       timerID = setInterval(function () {
+      //         nextImage();
+      //       }, 100);
+      //     }
+      //   }
+
+      //   // 오토 플레이 멈춤
+      //   function stopAutoPlay() {
+      //     if (timerID != 0) {
+      //       clearInterval(timerID);
+      //       timerID = 0;
+      //     }
+      //   }
+
+      //   // 다음 이미지
+      //   function nextImage() {
+      //     var index = currentIndex + 1;
+      //     if (index >= 60) index = 1;
+
+      //     showImage(index);
+      //   }
+
+      //   // 이전 이미지
+      //   function prevImage() {
+      //     var index = currentIndex - 1;
+      //     if (index <= 0) index = 59;
+
+      //     showImage(index);
+      //   }
+
+      //   // index 번째 이미지 출력
+      //   function showImage(index) {
+      //     //인덱스 번호를 attr 속성을 이용해 넣는 부분을 잘 활용한 예시다.
+      //     $view.attr("src", "./images/" + index + ".jpg");
+      //     currentIndex = index;
+
+      //     // 테스트를 위해 index 값 출력
+      //     console.log(currentIndex);
+      //   }
+
+      // 전역 변수 선언 부분
+      let $view = null;
+      let currentIndex = 1;
+      let timerID = 0;
+
+      // 시작 부분
+      $(document).ready(function () {
+        // 전역 요소 초기화 함수 호출
+        init();
+
+        // 이벤트 초기화 함수 호출
+        initEvent();
+      });
+
+      // 전역 요소 초기화
+      const init = () => {
+        $view = $("#view");
+      };
+
+      // 이벤트 초기화 함수
+      const initEvent = () => {
+        // 오토 플레이 실행
+        $("#play").click(() => {
+          startAutoPlay();
+        });
+
+        // 오토 플레이 멈춤
+        $("#stop").click(() => {
+          stopAutoPlay();
+        });
+
+        // 다음 이미지
+        $("#next").click(() => {
+          nextImage();
+        });
+
+        // 이전 이미지
+        $("#prev").click(() => {
+          prevImage();
+        });
+      };
+
+      // 오토 플레이 실행
+      const startAutoPlay = () => {
+        if (timerID == 0) {
+          timerID = setInterval(() => {
+            nextImage();
+          }, 100);
+        }
+      };
+
+      // 오토 플레이 멈춤
+      const stopAutoPlay = () => {
+        if (timerID != 0) {
+          clearInterval(timerID);
+          timerID = 0;
+        }
+      };
+
+      // 다음 이미지
+      const nextImage = () => {
+        let index = currentIndex + 1;
+        if (index >= 60) index = 1;
+
+        showImage(index);
+      };
+
+      // 이전 이미지
+      const prevImage = () => {
+        let index = currentIndex - 1;
+        if (index <= 0) index = 59;
+
+        showImage(index);
+      };
+
+      // index 번째 이미지 출력
+      const showImage = (index) => {
+        //인덱스 번호를 attr 속성을 이용해 넣는 부분을 잘 활용한 예시다.
+        $view.attr("src", "./images/" + index + ".jpg");
+        currentIndex = index;
+
+        // 테스트를 위해 index 값 출력
+        console.log(currentIndex);
+      };
+    </script>
+  </body>
+</html>

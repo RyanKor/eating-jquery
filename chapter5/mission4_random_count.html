@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>random count</title>
+    <style>
+      body {
+        font-size: 9px;
+      }
+
+      #panel {
+        width: 600px;
+        overflow: visible;
+        border: 1px dotted #ccc;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="panel"></div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let count = 0;
+      let $panel = null;
+      jQuery(document).ready(() => {
+        init();
+        start();
+      });
+      const init = () => {
+        //panel element 찾기
+        $panel = $("#panel");
+      }
+      const start = () => {
+        setInterval(addTag, 1000);
+      }
+      const addTag = () => {
+        let $span = $("<span></span>");
+
+        let color = "#" + parseInt(Math.random() * 0xffffff).toString(16);
+
+        let fontSize = (10 + parseInt(Math.random() * 40)) + "px";
+
+        $span.css({
+          color: color,
+          fontSize: fontSize,
+          display: "inline-block",
+        });
+
+        count++;
+        $span.html(color);
+
+        $span.append($span);
+
+        this.window.scrollTo(0, window.document.body.scrollHeight);
+      }
+    </script>
+  </body>
+</html>

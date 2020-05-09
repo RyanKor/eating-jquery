@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>node finder</title>
+    <style>
+      body {
+        font-size: 1rem;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      div,
+      p,
+      ul,
+      li {
+        border: 1px #eeeeee solid;
+        margin: 1rem;
+      }
+
+      ul {
+        padding: 10px;
+      }
+      li.select {
+        background-color: #ccc;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="samplePage" class="page">
+      샘플 페이지 (div, id=samplePage, class=page)
+      <div id="header">헤더영역(div, id=header)</div>
+      <div id="content" class="sample-content">
+        노드 찾기(div, id=content, class=sample-content)
+        <ul class="menu">
+          일반 노드 찾기(ul, class=menu)
+          <li>id로 찾기(li)</li>
+          <li class="select">tag로 찾기(li, class=select)</li>
+          <li>class로 찾기(li)</li>
+          <li class="test1">속성으로 찾기 (li, class=test1)</li>
+        </ul>
+        <div class="content-data">
+          자식노드 찾기(div, class=content-data)
+          <p class="test1">1. 자식 노드 찾기(p, class=test1)</p>
+          <p>2. 득정 자식 노드만 찾기</p>
+          <p class="test2">3. 마지막 자식 노드 찾기 (p, class=test2)</p>
+        </div>
+        <div id="footer">
+          푸터 영역(div, id=footer)
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        //코드 작성란
+      });
+    </script>
+  </body>
+</html>

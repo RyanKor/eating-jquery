@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tab menu item</title>
+    <style>
+      body {
+        font-size: 9pt;
+        font-family: "굴림";
+      }
+      div,
+      p,
+      ul,
+      li {
+      }
+      ul.menu {
+        padding: 10px;
+        list-style: none;
+        border: 1px #000 solid;
+      }
+      ul.menu li {
+        border: 1px #eeeeee solid;
+        margin: 10px;
+      }
+
+      li.select {
+        background-color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="menuName" />
+      <button id="add">추가</button>
+      <button id="update">수정</button>
+      <button id="remove">삭제</button>
+      <button id="up">up</button>
+      <button id="down">down</button>
+    </div>
+    <ul class="menu"></ul>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      /*
+            미션07 – 선택한 메뉴 아이템 위치를 아래로 이동
+            마지막 미션이군요. 이번 미션은 선택 메뉴 아이템을 아래로 이동시키는 기능 구현입니다.
+            선택 메뉴 아이템이 있는 상태에서 아래(#down) 버튼을 누르면
+            선택 메뉴 아이템이 아래로 이동되게 만들어주세요.
+
+            */
+
+      // 전역 변수 선언 및 초기화
+      //   var $menu = null;
+      //   var $menuName = null;
+      //   var $selectedItem = null;
+      //   $(document).ready(function () {
+      //     init();
+      //     initEvent();
+      //   });
+
+      //   // 전역에서 사용할 요소 초기화
+      //   function init() {
+      //     $menu = $("ul.menu");
+      //     $menuName = $("#menuName");
+      //   }
+
+      //   // 이벤트 초기화
+      //   function initEvent() {
+      //     // 메뉴 추가
+      //     $("#add").click(function () {
+      //       addMenu();
+      //     });
+
+      //     $menu.on("click", "li", function () {
+      //       selectItem($(this));
+      //     });
+      //     // 업데이트
+      //     $("#update").click(function () {
+      //       updateMenuItem();
+      //     });
+      //     // 선택 항목 삭제
+      //     $("#remove").click(function () {
+      //       removeMenuItem();
+      //     });
+      //     // 선택 메뉴 항목을 위로 이동
+      //     $("#up").click(function () {
+      //       upMenuItem();
+      //     });
+      //     // 선택 메뉴 항목을 아래로 이동
+      //     $("#down").click(function () {
+      //       downMenuItem();
+      //     });
+      //   }
+
+      //   // 메뉴 추가 처리
+      //   function addMenu() {
+      //     // 텍스트 입력 값 구하기
+      //     var menuName = $menuName.val();
+
+      //     // 신규 메뉴 아이템 문자열 만들기
+      //     var newMenuItem = "<li>" + menuName + "</li>";
+
+      //     // 선택 메뉴 아이템이 있는 경우 신규 메뉴 아이템을 선택 메뉴 아이템 아래에 추가
+      //     if ($selectedItem) {
+      //       $selectedItem.after(newMenuItem);
+      //     } else {
+      //       // 메뉴에 신규 메뉴 아이템 추가
+      //       $menu.append(newMenuItem);
+      //     }
+      //   }
+
+      //   // 메뉴 선택 처리
+      //   function selectItem($item) {
+      //     // 기존 선택 메뉴 아이템이 있는 경우 선택 효과 제거
+      //     if ($selectedItem != null) $selectedItem.removeClass("select");
+
+      //     // 신규 선택 메뉴 아이템 처리
+      //     $selectedItem = $item;
+      //     $selectedItem.addClass("select");
+      //   }
+
+      //   // 메뉴 항목 이름 수정 하기
+      //   function updateMenuItem() {
+      //     if ($selectedItem) {
+      //       var menuName = $menuName.val();
+      //       $selectedItem.html(menuName);
+      //     } else {
+      //       alert("선택 메뉴가 존재 하지 않습니다.");
+      //     }
+      //   }
+
+      //   // 선택 메뉴 항목 삭제
+      //   function removeMenuItem() {
+      //     if ($selectedItem) {
+      //       $selectedItem.remove();
+      //       $selectedItem = null;
+      //     } else {
+      //       alert("선택 메뉴가 존재 하지 않습니다.");
+      //     }
+      //   }
+
+      //   // 위로 이동
+      //   function upMenuItem() {
+      //     if ($selectedItem) {
+      //       var $prevItem = $selectedItem.prev();
+      //       if ($prevItem) $selectedItem.insertBefore($prevItem);
+      //     } else {
+      //       alert("선택 메뉴가 존재 하지 않습니다.");
+      //     }
+      //   }
+
+      //   // 아래로 이동
+      //   function downMenuItem() {
+      //     if ($selectedItem) {
+      //       var $nextItem = $selectedItem.next();
+      //       if ($nextItem) $selectedItem.insertAfter($nextItem);
+      //     } else {
+      //       alert("선택 메뉴가 존재 하지 않습니다.");
+      //     }
+      //   }
+      let $menu = null;
+      let $menuName = null;
+      let $selectedItem = null;
+      $(document).ready(() => {
+        init();
+        initEvent();
+      });
+      const init = () => {
+        $menu = $("ul.menu");
+        $menuName = $("#menuName");
+      };
+      const initEvent = () => {
+        $("#add").click(() => {
+          addMenu();
+        });
+        $menu.on("click", "li", () => {
+          selectItem($(this)); //this는 "li"를 가리킴
+        });
+        $("#update").click(() => {
+          updateMenuItem();
+        });
+        $("#remove").click(() => {
+          removeMenuItem();
+        });
+        $("#up").click(() => {
+          upMenuItem();
+        });
+        $("#down").click(() => {
+          downMenuItem();
+        });
+      };
+      const addMenu = () => {
+        let menuName = $menuName.val();
+        let newMenuItem = "<li>" + menuName + "</li>";
+        if ($selectedItem) {
+          $selectedItem.after(newMenuItem);
+        } else {
+          $menu.append(newMenuItem);
+        }
+      };
+      const selectItem = ($item) => {
+        if ($selectedItem != null) {
+          $selectedItem.removeClass("select");
+        }
+        $selectedItem = $item;
+        $selectedItem.addClass("select");
+      };
+
+      const updateMenuItem = () => {
+        if ($selectedItem) {
+          let menuName = $menuName.val();
+          $selectedItem.html(menuName);
+        } else {
+          alert("선택 메뉴가 없습니다.");
+        }
+      };
+      const removeMenuItem = () => {
+        if ($selectedItem) {
+          $selectedItem.remove();
+          $selectedItem = null;
+        } else {
+          alert("선택 메뉴가 존재하지 않습니다.");
+        }
+      };
+
+      const upMenuItem = () => {
+        if ($selectedItem) {
+          let $prevItem = $selectedItem.prev();
+          if ($prevItem) {
+            $selectedItem.insertBefore($prevItem);
+          }
+        } else {
+          alert("선택 메뉴가 존재하지 않습니다.");
+        }
+      };
+      const downMenuItem = () => {
+        if ($selectedItem) {
+          let $nextItem = $selectedItem.next();
+          if ($nextItem) {
+            $selectedItem.insertAfter($nextItem);
+          }
+        } else {
+          alert("선택 메뉴가 존재하지 않습니다.");
+        }
+      };
+    </script>
+  </body>
+</html>

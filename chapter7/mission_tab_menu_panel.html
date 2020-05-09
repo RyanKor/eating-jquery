@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .tab-menu {
+        list-style: none;
+        height: 80px;
+      }
+
+      .tab-menu li {
+        width: 99px;
+        height: 40px;
+        background-position-y: 0;
+        text-indent: -1000px;
+        overflow: hidden;
+        display: inline-block;
+        float: left;
+      }
+      .tab-menu li:hover {
+        background-position-y: -40px;
+      }
+      .tab-menu li.select {
+        background-position-y: -80px;
+        height: 80px;
+      }
+      .tab-menu li.menuitem1 {
+        background-image: url(./images/newbtn.bar.1.png);
+      }
+      .tab-menu li.menuitem2 {
+        background-image: url(./images/newbtn.bar.2.png);
+      }
+      .tab-menu li.menuitem3 {
+        background-image: url(./images/newbtn.bar.3.png);
+      }
+      .tab-menu li.menuitem4 {
+        background-image: url(./images/newbtn.bar.4.png);
+      }
+      .tab-menu li.menuitem5 {
+        background-image: url(./images/newbtn.bar.6.png);
+      }
+
+      .tab-contents {
+        position: relative;
+        left: 10px;
+        top: 10px;
+        width: 780px;
+        height: 340px;
+        overflow: hidden;
+        background: url(./images/content_bg.png) no-repeat;
+      }
+
+      .tab-contents .content {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        display: none;
+      }
+
+      .tab-contents .content.select {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="tab-menu" id="tabMenu1">
+      <li class="menuitem1">facebook</li>
+      <li class="menuitem2">google</li>
+      <li class="menuitem3">pinterest</li>
+      <li class="menuitem4">twitter</li>
+      <li class="menuitem5">path</li>
+    </ul>
+
+    <div class="tab-contents">
+      <div class="content">
+        <img src="images/content_facebook.png" />
+      </div>
+      <div class="content">
+        <img src="images/content_google.png" />
+      </div>
+      <div class="content">
+        <img src="images/content_pinterest.png" />
+      </div>
+      <div class="content">
+        <img src="images/content_twitter.png" />
+      </div>
+      <div class="content">
+        <img src="images/content_path.png" />
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //   var tabPanel1 = null;
+      //   $(document).ready(function () {
+      //     // 탭메뉴 코드가 동작할 수 있도록 tabMenu() 함수 호출
+      //     var tabMenu1 = tabMenu("#tabMenu1");
+      //     tabMenu1.$tabMenu.on("tabSelect", function (e) {
+      //       tabPanel1.setSelectPanel(e.selectIndex);
+      //     });
+      //     // 탭패널 기능 호출
+      //     tabPanel1 = tabPanel(".tab-contents");
+      //   });
+
+      //   // 탭메뉴 기능 구현하기
+
+      //   function tabMenu(selector) {
+      //     var $tabMenu = null;
+      //     var $menuItems = null;
+      //     // 선택 한 탭메뉴를 저장할 변수
+      //     var $selectMenuItem = null;
+
+      //     // 요소 초기화, tabMenu() 함수 내부에서 사용할 공통 데이터는 모두 이곳에 작성해주세요.
+      //     function init() {
+      //       $tabMenu = $(selector);
+      //       $menuItems = $tabMenu.find("li");
+      //     }
+
+      //     // 이벤트 등록은 모두 이곳에 작성해주세요.
+      //     function initEvent() {
+      //       $menuItems.click(function () {
+      //         setSelectItem($(this));
+      //       });
+      //     }
+
+      //     // 선택 메뉴 아이템 만들기
+      //     function setSelectItem($item) {
+      //       if ($selectMenuItem) {
+      //         $selectMenuItem.removeClass("select");
+      //       }
+      //       $selectMenuItem = $item;
+      //       $selectMenuItem.addClass("select");
+
+      //       // 이벤트 발생
+      //       dispatchSelectEvent();
+      //     }
+
+      //     // index번째 메뉴 아이템 선택
+      //     function setSelectItemAt(index) {
+      //       var $item = $menuItems.eq(index);
+      //       setSelectItem($item);
+      //     }
+
+      //     // 이벤트 발생
+      //     function dispatchSelectEvent() {
+      //       // 이벤트 객체 생성
+      //       var event = jQuery.Event("tabSelect");
+      //       // 이벤트에 담아 보낼 데이터 연결
+      //       event.selectIndex = $selectMenuItem.index();
+      //       event.$selectItem = $selectMenuItem;
+
+      //       $tabMenu.trigger(event);
+      //     }
+
+      //     init();
+      //     initEvent();
+
+      //     return {
+      //       $tabMenu: $tabMenu,
+      //       setSelectItemAt: setSelectItemAt,
+      //     };
+      //   }
+
+      //   // 탭패널 기능 구현하기
+      //   function tabPanel(selector) {
+      //     var $tabPanels = null;
+      //     var $selectPanel = null;
+      //     function init(selector) {
+      //       $tabPanels = $(selector).find(".content");
+      //     }
+
+      //     function setSelectPanel(index) {
+      //       if ($selectPanel) {
+      //         $selectPanel.removeClass("select");
+      //       }
+      //       $selectPanel = $tabPanels.eq(index);
+      //       $selectPanel.addClass("select");
+      //     }
+
+      //     init(selector);
+
+      //     // 선택기능 리턴
+      //     return {
+      //       setSelectPanel: setSelectPanel,
+      //     };
+      //   }
+      let tabPanel1 = null;
+      $(document).ready(() => {
+        // 탭메뉴 코드가 동작할 수 있도록 tabMenu() 함수 호출
+        let tabMenu1 = tabMenu("#tabMenu1");
+        tabMenu1.$tabMenu.on("tabSelect", (e) => {
+          tabPanel1.setSelectPanel(e.selectIndex);
+        });
+        // 탭패널 기능 호출
+        tabPanel1 = tabPanel(".tab-contents");
+      });
+
+      // 탭메뉴 기능 구현하기
+
+      const tabMenu = (selector) => {
+        let $tabMenu = null;
+        let $menuItems = null;
+        // 선택 한 탭메뉴를 저장할 변수
+        let $selectMenuItem = null;
+
+        // 요소 초기화, tabMenu() 함수 내부에서 사용할 공통 데이터는 모두 이곳에 작성해주세요.
+        const init = () => {
+          $tabMenu = $(selector);
+          $menuItems = $tabMenu.find("li");
+        };
+
+        // 이벤트 등록은 모두 이곳에 작성해주세요.
+        const initEvent = () => {
+          $menuItems.click(function () {
+            setSelectItem($(this));
+          });
+        };
+
+        // 선택 메뉴 아이템 만들기
+        const setSelectItem = ($item) => {
+          if ($selectMenuItem) {
+            $selectMenuItem.removeClass("select");
+          }
+          $selectMenuItem = $item;
+          $selectMenuItem.addClass("select");
+
+          // 이벤트 발생
+          dispatchSelectEvent();
+        };
+
+        // index번째 메뉴 아이템 선택
+        const setSelectItemAt = (index) => {
+          let $item = $menuItems.eq(index);
+          setSelectItem($item);
+        };
+
+        // 이벤트 발생
+        const dispatchSelectEvent = () => {
+          // 이벤트 객체 생성
+          let event = jQuery.Event("tabSelect");
+          // 이벤트에 담아 보낼 데이터 연결
+          event.selectIndex = $selectMenuItem.index();
+          event.$selectItem = $selectMenuItem;
+
+          $tabMenu.trigger(event);
+        };
+
+        init();
+        initEvent();
+
+        return {
+          $tabMenu: $tabMenu,
+          setSelectItemAt: setSelectItemAt,
+        };
+      };
+
+      // 탭패널 기능 구현하기
+      const tabPanel = (selector) => {
+        let $tabPanels = null;
+        let $selectPanel = null;
+        const init = (selector) => {
+          $tabPanels = $(selector).find(".content");
+        };
+
+        const setSelectPanel = (index) => {
+          if ($selectPanel) {
+            $selectPanel.removeClass("select");
+          }
+          $selectPanel = $tabPanels.eq(index);
+          $selectPanel.addClass("select");
+        };
+
+        init(selector);
+
+        // 선택기능 리턴
+        return {
+          setSelectPanel: setSelectPanel,
+        };
+      };
+    </script>
+  </body>
+</html>

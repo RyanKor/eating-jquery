@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .wrap {
+        margin: 50px;
+      }
+
+      #prev,
+      #next {
+        width: 80px;
+        height: 40px;
+      }
+      div.banner {
+        margin-top: 10px;
+        width: 260px;
+        height: 166px;
+        border: 1px solid #000;
+
+        position: relative;
+        /* 테스트를 위해 주석 처리 */
+        overflow: hidden;
+      }
+
+      div.banner-container {
+        width: 1300px; /* 260*5 */
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      div.banner-container img {
+        display: block;
+        float: left;
+        left: 0;
+        top: 0;
+        width: 260px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <button id="prev">이전</button>
+      <button id="next">다음</button>
+      <div class="banner">
+        <div class="banner-container">
+          <img src="banners/1.png" />
+          <img src="banners/2.png" />
+          <img src="banners/3.png" />
+          <img src="banners/4.png" />
+          <img src="banners/5.png" />
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <!-- jquery ui 관련 S.easing이라는 에러가 발생하는데 아래의 jquery ui관련 cdn을 삽입하면 에러를 해결해준다. -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+    <script>
+      /*
+         미션 : 롤링 배너 만들기
+
+         step #03
+                - stop() 메서드 적용
+                
+         step #02
+            - 애니메이션 적용
+
+         step #01
+            -  이전 다음 이미지 처리
+
+         step #00
+            - 레이아웃 제작
+         */
+
+      $(document).ready(() => {
+        let $banner = $(".banner-container");
+        let bannerLength = $banner.find("img").length;
+        let bannerWidth = $(".banner").width();
+        let currentIndex = 0;
+
+        // index 번째 배너 이미지 출력
+        const showImage = (index) => {
+          let left = -(index * bannerWidth);
+          //$banner.css("left", left);
+
+          $banner.stop().animate(
+            {
+              left: left,
+            },
+            600,
+            "easeOutCubic"
+          );
+        };
+
+        $("#prev").click(() => {
+          // 인덱스 값 구하기
+          currentIndex--;
+          if (currentIndex < 0) currentIndex = bannerLength - 1;
+
+          // currentIndex 번째 배너 이미지 출력
+          showImage(currentIndex);
+        });
+
+        $("#next").click(() => {
+          // 인덱스 값 구하기
+          currentIndex++;
+          if (currentIndex >= bannerLength) currentIndex = 0;
+
+          // currentIndex 번째 배너 이미지 출력
+          showImage(currentIndex);
+        });
+      });
+    </script>
+  </body>
+</html>

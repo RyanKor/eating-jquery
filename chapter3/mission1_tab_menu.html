@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Count Tab Menu</title>
+    <style>
+      .tab-menu {
+        list-style: none;
+        height: 80px;
+      }
+
+      .tab-menu li {
+        width: 99px;
+        height: 40px;
+        background-position-y: 0;
+        text-indent: -1000px;
+        overflow: hidden;
+        display: inline-block;
+        float: left;
+      }
+      .tab-menu li:hover {
+        background-position-y: -40px;
+        /* 마우스 커서를 가져다 댔을 때, 이미지 색이 변경됨 */
+      }
+      .tab-menu li.select {
+        background-position-y: -80px;
+        height: 80px;
+      }
+      /* 이미지 백그라운드 설정 */
+      .tab-menu li.menuitem1 {
+        background-image: url("./images/newbtn.bar.1.png");
+      }
+      .tab-menu li.menuitem2 {
+        background-image: url("./images/newbtn.bar.2.png");
+      }
+      .tab-menu li.menuitem3 {
+        background-image: url("./images/newbtn.bar.3.png");
+      }
+      .tab-menu li.menuitem4 {
+        background-image: url("./images/newbtn.bar.4.png");
+      }
+      .tab-menu li.menuitem5 {
+        background-image: url("./images/newbtn.bar.5.png");
+      }
+      .tab-menu li.menuitem6 {
+        background-image: url("./images/newbtn.bar.6.png");
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="tab-menu" id="tabMenu1">
+      <li class="menuitem1">Google</li>
+      <li class="menuitem2">Facebook</li>
+      <li class="menuitem3">Pinterest</li>
+      <li class="menuitem4">Twitter</li>
+      <li class="menuitem5">Airbnb</li>
+      <li class="menuitem6">Path</li>
+    </ul>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        // 전체 li의 갯수
+        alert("length = " + $("#tabMenu1 li").length);
+        // 클릭한 탭 메뉴의 인덱스 값 출력하기
+        $("#tabMenu1 li").click(function (e) {
+          //$("#tabMenu1")만 입력했을 경우, index는 당연히 id값을 가리킬 것이지만, li를 추가하면 ul태그 내 li를 지칭
+          console.log($(this).index());
+        });
+        let currentIndex = 0;
+        let $menuItems = $("#tabMenu1 li");
+        let timerID = setInterval(function () {
+          let $item = $menuItems.eq(currentIndex);
+          //select라는 클래스가 뭔가 다른 특별한 기능이 있나? 그럴리는 없고, 내가 지정한 게 아닌데 어떻게 이미지가 바뀌지?
+          $item.addClass("select");
+          currentIndex++;
+          if (currentIndex >= $menuItems.length) {
+            clearInterval(timerID);
+          }
+
+          console.log("current Index " + currentIndex);
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
